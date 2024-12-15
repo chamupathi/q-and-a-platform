@@ -3,14 +3,15 @@ const PropertyController = require('../controllers/property-controller');
 
 const router = express.Router();
 const controller = new PropertyController()
-// Define routes for /tags
-// router.post('/', controller.createProperty); // Create a tags
 
-// for now lets only keep the getters
-router.get('/', controller.getAllProperties); // Get all tagss
-router.get('/:id', controller.getPropertyById); // Get a tags by ID
 
-// router.put('/:id', controller.updateProperty); // Update a tags
-// router.delete('/:id', controller.deleteProperty); // Delete a tags
+// for now lets only implement the getters
+router.get('/', controller.getAllProperties); // Get all 
+router.get('/:id', controller.getPropertyById); // Get by ID
+
+
+// router.post('/', controller.createProperty); // Create
+// router.put('/:id', controller.updateProperty); // Update
+// router.delete('/:id', controller.deleteProperty); // Delete
 
 module.exports = router;

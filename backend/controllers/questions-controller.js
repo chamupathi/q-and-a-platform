@@ -3,7 +3,7 @@ const queryToSearch = require('./helpers/query-to-search');
 const createQuestionSchema = require('./validators/create-question.schema');
 const updateQuestionSchema = require('./validators/update-question.schema');
 
-
+const DEFAULT_COMP_ID = 1234;
 class QuestionController {
 
     constructor() {
@@ -20,7 +20,9 @@ class QuestionController {
     async createQuestion(req, res) {
         const data = req.body;
 
-        data.companyId = '123';
+        data.companyId = DEFAULT_COMP_ID;
+
+        // get user email from authenticated user
         data.createdBy = req._userInfo.email;
 
         const { error } = createQuestionSchema.validate(data, { abortEarly: false });
