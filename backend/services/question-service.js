@@ -22,9 +22,9 @@ class QuestionService {
         })
     }
 
-    async getAllQuestions(search) {
+    async getAllQuestions(search = [], size) {
         const data = await this.questionsStore.getAll(
-            search
+            search, size
         );
 
         return await new Promise(resolve => {

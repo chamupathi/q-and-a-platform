@@ -3,7 +3,7 @@ const queryToSearch = require('./helpers/query-to-search');
 const createQuestionSchema = require('./validators/create-question.schema');
 const updateQuestionSchema = require('./validators/update-question.schema');
 
-const DEFAULT_COMP_ID = 1234;
+const DEFAULT_COMP_ID = '1234';
 class QuestionController {
 
     constructor() {
@@ -44,9 +44,10 @@ class QuestionController {
     async getAllQuestions(req, res) {
 
         const search = queryToSearch(req.query);
+        const size = req.query.size;
         
         try {
-            const questions = await this.service.getAllQuestions(search);
+            const questions = await this.service.getAllQuestions(search, size);
             res.status(200).json(questions);
         } catch (error) {
             res.status(500).json({ error: 'Failed to retrieve questions' });

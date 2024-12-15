@@ -23,7 +23,8 @@ class TagsService {
 
     // Retrieve all tags
     async getAllTags() {
-        const data = await this.tagsStore.getAll();
+        // Set a higher limit when listing tags
+        const data = await this.tagsStore.getAll(null, 100);
 
         return await new Promise(resolve => {
             resolve([...data])

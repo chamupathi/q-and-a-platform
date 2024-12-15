@@ -1,5 +1,6 @@
 const base = require("./airtable-base");
 
+const DEFAULT_SIZE = 10;
 class AirtableStore {
 
     constructor(tableName) {
@@ -22,7 +23,7 @@ class AirtableStore {
 
     }
 
-    getAll(_search = []) {
+    getAll(_search = [], size = DEFAULT_SIZE) {
         return new Promise((resolve, reject) => {
             const d = [];
 
@@ -38,21 +39,19 @@ class AirtableStore {
                 }
 
             }).join(", ");
-            const formula = `AND(${searchText})`
+            const formula = `OR(${searchText})`
 
             const selectProperties = {
                 view: "Grid view",
+                maxRecords: size
             };
 
-            if (Array.isArray(_search)) {
+            if (Array.isArray(_search) && _search.length > 0) {
                 selectProperties.filterByFormula = formula
             }
 
             base(this.tableName).select({
                 ...selectProperties,
-                // view: "Grid view",
-                // filterByFormula: `AND(SEARCH("${searchText1}", {question}), SEARCH("${searchText2}", {question}))`
-                // filterByFormula: "NOT({question} = '')"
             }).eachPage(function page(records, fetchNextPage) {
                 // This function (`page`) will get called for each page of records.
 
