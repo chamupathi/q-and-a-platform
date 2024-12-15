@@ -8,12 +8,12 @@ class QuestionService {
     }
 
     async createQuestion(data) {
-        if(data.answer) {
+        if (data.answer) {
             const answerRes = await this.answersStore.create({
                 content: data.answer
             })
 
-            data.answer_history =  [answerRes.id];
+            data.answer_history = [answerRes.id];
         }
         const res = await this.questionsStore.create(data);
 
@@ -23,7 +23,9 @@ class QuestionService {
     }
 
     async getAllQuestions() {
-        const data = await this.questionsStore.getAll();
+        const data = await this.questionsStore.getAll(
+            [{text: 'Gadgets', field: 'tags_list', type: 'array' }, {text: 'prop', field: 'question', type: 'text' }]
+        );
 
         return await new Promise(resolve => {
             resolve([...data])
@@ -41,13 +43,13 @@ class QuestionService {
 
     // Update a question by ID
     async updateQuestion(id, data) {
-        if(data.answer) {
+        if (data.answer) {
             const answerRes = await this.answersStore.create({
                 content: data.answer
             })
 
             const q = await this.getQuestionById(id);
-            data.answer_history = [...(q.fields.answer_history ?? []), answerRes.id] 
+            data.answer_history = [...(q.fields.answer_history ?? []), answerRes.id]
         }
 
         const res = await this.questionsStore.update(id, data);
