@@ -14,6 +14,7 @@ class QuestionController {
         this.getQuestionById = this.getQuestionById.bind(this)
         this.updateQuestion = this.updateQuestion.bind(this)
         this.deleteQuestion = this.deleteQuestion.bind(this)
+        this.getQuestionAnswersById = this.getQuestionAnswersById.bind(this)
     }
 
     // Create a new question
@@ -62,6 +63,19 @@ class QuestionController {
             if (!question) return res.status(404).json({ error: 'Question not found' });
             res.status(200).json(question);
         } catch (error) {
+            res.status(500).json({ error: 'Failed to retrieve question' });
+        }
+    }
+
+     // Get a question by ID
+     async getQuestionAnswersById(req, res) {
+        try {
+            const id = req.params.id;
+            const question = await this.service.getQuestionAnswersById(id);
+            if (!question) return res.status(404).json({ error: 'Question not found' });
+            res.status(200).json(question);
+        } catch (error) {
+            console.error(error)
             res.status(500).json({ error: 'Failed to retrieve question' });
         }
     }

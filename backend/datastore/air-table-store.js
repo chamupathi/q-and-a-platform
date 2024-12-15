@@ -78,11 +78,16 @@ class AirtableStore {
     }
 
     async get(id) {
-        const res = await base(this.tableName).find(id)
+        try {
+            const res = await base(this.tableName).find(id)
 
-        return await new Promise(resolve => {
-            resolve(res._rawJson)
-        })
+            return await new Promise(resolve => {
+                resolve(res._rawJson)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+
     }
 
     async update(id, data) {

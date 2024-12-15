@@ -8,14 +8,18 @@ class QuestionService {
     }
 
     async createQuestion(data) {
+        
+        const res = await this.questionsStore.create(data);
+
         if (data.answer) {
             const answerRes = await this.answersStore.create({
-                content: data.answer
+                content: data.answer,
+                createdBy: data.createdBy,
+                questionId : res.id
             })
 
-            data.answer_history = [answerRes.id];
+            // data.answer_history = [answerRes.id];
         }
-        const res = await this.questionsStore.create(data);
 
         return await new Promise(resolve => {
             resolve(res)
@@ -34,7 +38,18 @@ class QuestionService {
 
     // Retrieve a question by ID
     async getQuestionById(id) {
+        
         const data = await this.questionsStore.get(id);
+
+        return await new Promise(resolve => {
+            resolve(data)
+        })
+    }
+
+    async getQuestionAnswersById(id) {
+        const data = await this.answersStore.getAll(
+            [{ type:'text', field: 'questionId', term: id}]
+        );
 
         return await new Promise(resolve => {
             resolve(data)
@@ -45,7 +60,9 @@ class QuestionService {
     async updateQuestion(id, data) {
         if (data.answer) {
             const answerRes = await this.answersStore.create({
-                content: data.answer
+                content: data.answer,
+                createdBy : data.updatedBy,
+                questionId : id,
             })
 
             const q = await this.getQuestionById(id);
