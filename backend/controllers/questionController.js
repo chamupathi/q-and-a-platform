@@ -1,4 +1,5 @@
 const QuestionService = require('../services/questionService');
+const queryToSearch = require('./helpers/queryToSearch');
 const createQuestionSchema = require('./validators/createQuestion');
 const updateQuestionSchema = require('./validators/updateQuestion');
 
@@ -39,8 +40,11 @@ class QuestionController {
 
     // Get all questions
     async getAllQuestions(req, res) {
+
+        const search = queryToSearch(req.query);
+        
         try {
-            const questions = await this.service.getAllQuestions();
+            const questions = await this.service.getAllQuestions(search);
             res.status(200).json(questions);
         } catch (error) {
             res.status(500).json({ error: 'Failed to retrieve questions' });
@@ -63,7 +67,7 @@ class QuestionController {
     async updateQuestion(req, res) {
         const data = req.body;
         data.updatedBy = req._userInfo.email;
-        
+
         const { error } = updateQuestionSchema.validate(data, { abortEarly: false });
         if (error) {
             // Send validation errors to the client

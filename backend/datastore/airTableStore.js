@@ -26,15 +26,15 @@ class AirtableStore {
         return new Promise((resolve, reject) => {
             const d = [];
 
-            // const _search = [{text: 'some text', field: 'question' }]
+            // const _search = [{term: 'some text', field: 'question' }]
             const searchText = _search?.map(f => {
 
                 switch (f.type) {
                     case 'array':
-                        return `SEARCH("${f.text}", ARRAYJOIN({${f.field}}, ",")`
+                        return `SEARCH(UPPER("${f.term}"), UPPER(ARRAYJOIN({${f.field}}, ",")))`
                     case 'text':
                     default:
-                        return `SEARCH("${f.text}", {${f.field}})`
+                        return `SEARCH(UPPER("${f.term}"), UPPER({${f.field}}))`
                 }
 
             }).join(", ");
@@ -48,11 +48,6 @@ class AirtableStore {
                 selectProperties.filterByFormula = formula
             }
 
-            const tag = "DIY Gadgets"
-            selectProperties.filterByFormula = `SEARCH("${tag}", ARRAYJOIN({tags_list}, ","))`
-
-            const searchText1 = "222"
-            const searchText2 = "Question"
             base(this.tableName).select({
                 ...selectProperties,
                 // view: "Grid view",

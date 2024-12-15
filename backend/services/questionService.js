@@ -22,9 +22,10 @@ class QuestionService {
         })
     }
 
-    async getAllQuestions() {
+    async getAllQuestions(search) {
         const data = await this.questionsStore.getAll(
-            [{text: 'Gadgets', field: 'tags_list', type: 'array' }, {text: 'prop', field: 'question', type: 'text' }]
+            search
+            // [{text: 'Gadgets', field: 'tags_list', type: 'array' }, {text: 'prop', field: 'question', type: 'text' }]
         );
 
         return await new Promise(resolve => {
