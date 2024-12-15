@@ -1,20 +1,15 @@
-// const Tag = require('../models/Tag');
-
 const AirtableStore = require("../datastore/air-table-store");
 
-const tempQ = {
-    name: 'sam'
-};
 
-class TagsService {
+class PropertiesService {
     constructor() {
-        this.tagsStore = new AirtableStore('Tags');
+        this.propertyValueStore = new AirtableStore('property_value');
     }
 
 
     // Create a new tag
-    async createTag(data) {
-        const res = this.tagsStore.create(data).catch(err => console.log(err))
+    async createProperty(data) {
+        const res = this.propertyValueStore.create(data).catch(err => console.log(err))
 
         return await new Promise(resolve => {
             resolve(res)
@@ -22,8 +17,8 @@ class TagsService {
     }
 
     // Retrieve all tags
-    async getAllTags() {
-        const data = await this.tagsStore.getAll();
+    async getAllProperties() {
+        const data = await this.propertyValueStore.getAll();
 
         return await new Promise(resolve => {
             resolve([...data])
@@ -31,8 +26,8 @@ class TagsService {
     }
 
     // Retrieve a tag by ID
-    async getTagById(id) {
-        const data = await this.tagsStore.get(id);
+    async getPropertyById(id) {
+        const data = await this.propertyValueStore.get(id);
 
         return await new Promise(resolve => {
             resolve(data)
@@ -40,8 +35,8 @@ class TagsService {
     }
 
     // Update a tag by ID
-    async updateTag(id, data) {
-        const res = await this.tagsStore.update(id, data);
+    async updateProperty(id, data) {
+        const res = await this.propertyValueStore.update(id, data);
 
         return await new Promise(resolve => {
             resolve(res)
@@ -49,8 +44,8 @@ class TagsService {
     }
 
     // Delete a tag by ID
-    async deleteTag(id) {
-        const res = await this.tagsStore.delete(id);
+    async deleteProperty(id) {
+        const res = await this.propertyValueStore.delete(id);
 
         return await new Promise(resolve => {
             resolve(res)
@@ -58,4 +53,4 @@ class TagsService {
     }
 }
 
-module.exports = TagsService;
+module.exports = PropertiesService;

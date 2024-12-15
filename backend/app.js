@@ -8,7 +8,8 @@ const userInfo = require('./middlewares/user-info');
 const cors = require('cors');
 
 const questionRoutes = require('./routes/questions-routes');
-const tagsRoutes = require('./routes/tags-routes')
+const tagsRoutes = require('./routes/tags-routes');
+const propertiesRoutes = require('./routes/properties-routes');
 
 // Initialize the app and middleware
 const app = express();
@@ -27,6 +28,7 @@ app.use(userInfo)
 // routes
 app.use('/v1/questions', questionRoutes);
 app.use('/v1/tags', tagsRoutes);
+app.use('/v1/properties', propertiesRoutes);
 
 
 // error-handling middleware
