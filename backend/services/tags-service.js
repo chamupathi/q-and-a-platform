@@ -1,6 +1,6 @@
 // const Tag = require('../models/Tag');
 
-const base = require("../datastore/airtablebase");
+const base = require("../datastore/airtable-base");
 
 const tempQ = {
     name: 'sam'

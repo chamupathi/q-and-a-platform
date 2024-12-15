@@ -1,5 +1,5 @@
-const tagService = require('../services/tagService');
-const createTagSchema = require('./validators/createTag');
+const tagService = require('../services/tags-service');
+const createTagSchema = require('./validators/create-tag.schema');
 
 // Create a new tag
 async function createTag(req, res) {

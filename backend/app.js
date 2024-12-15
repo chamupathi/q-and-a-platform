@@ -2,92 +2,52 @@ require('dotenv').config()
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const checkJwt = require('./middlewares/checkJwt');
-const userInfo = require('./middlewares/userInfo');
-// const { expressjwt: jwt } = require('express-jwt');
-// const jwksRsa = require('jwks-rsa');
+const { default: helmet } = require('helmet');
+const checkJwt = require('./middlewares/check-jwt');
+const userInfo = require('./middlewares/user-info');
 const cors = require('cors');
 
-const questionRoutes = require('./routes/questionRoutes');
-const tagsRoutes = require('./routes/tagsRoutes')
+const questionRoutes = require('./routes/questions-routes');
+const tagsRoutes = require('./routes/tags-routes')
 
 // Initialize the app and middleware
 const app = express();
 
+app.use(helmet());
 // Enable CORS
 app.use(cors());
 
+// middlewares
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(checkJwt)
+app.use(userInfo)
 
-app.use(userInfo) 
 
-
-app.get('/', (req, res) => {
-    // console.log('req.auth', req.auth)
-    // console.log('req', req)
-
-    var userId = req.auth['https://q-and-a.uk.auth0.com/email'];
-    console.log('email', userId)
-
-    res.json({ great: false })
-})
-
+// routes
 app.use('/v1/questions', questionRoutes);
 app.use('/v1/tags', tagsRoutes);
 
 
-const base = require('./datastore/airtablebase');
-
-const d = []
-// base('Tags').select({
-//     // Selecting the first 3 records in Grid view:
-//     // maxRecords: 1,
-//     view: "Grid view",
-// }).eachPage(function page(records, fetchNextPage) {
-//     // This function (`page`) will get called for each page of records.
-
-//     records.forEach(function (record, i) {
-//         // console.log('Retrieved',i, record.get('Question Text'));
-//         console.log('Retrieved', i, record.fields);
-//         d.push({...record.fields, id: record.id})
-//         // console.log('Retrieved',i, record.get('Tags'));
-//     });
-
-//     // To fetch the next page of records, call `fetchNextPage`.
-//     // If there are more records, `page` will get called again.
-//     // If there are no more records, `done` will get called.
-//     fetchNextPage();
-
-// }, function done(err) {
-//     if (err) { console.error(err); return; }
-//     console.log('all', d)
-// });
-
-
-// Add your error-handling middleware at the end
+// error-handling middleware
 app.use((err, req, res, next) => {
-    // Log the error (optional)
-    console.error(err.stack);
-  
-    // Set default status code if not set
-    const statusCode = err.status || 500;
-  
-    // Send error response
-    res.status(statusCode).json({
-      error: {
-        message: err.message || 'Internal Server Error',
-      },
-    });
+  // Log the error
+  console.error(err.stack);
+
+  // Set default status code if not set
+  const statusCode = err.status || 500;
+
+  // Send error response
+  res.status(statusCode).json({
+    error: {
+      message: err.message || 'Internal Server Error',
+    },
   });
-  
+});
+
 
 // Start the server
 const PORT = 3001;
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

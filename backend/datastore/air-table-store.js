@@ -1,4 +1,4 @@
-const base = require("./airtablebase");
+const base = require("./airtable-base");
 
 class AirtableStore {
 

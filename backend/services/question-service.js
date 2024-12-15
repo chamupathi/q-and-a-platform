@@ -1,5 +1,5 @@
-const AirtableStore = require("../datastore/airtableStore");
-const base = require("../datastore/airtablebase");
+const AirtableStore = require("../datastore/air-table-store");
+const base = require("../datastore/airtable-base");
 
 class QuestionService {
     constructor() {
