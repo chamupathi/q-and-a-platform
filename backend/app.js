@@ -1,9 +1,14 @@
+require('dotenv').config()
+
 const express = require('express');
 const bodyParser = require('body-parser');
-const { expressjwt: jwt } = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const checkJwt = require('./middlewares/checkJwt');
+const userInfo = require('./middlewares/userInfo');
+// const { expressjwt: jwt } = require('express-jwt');
+// const jwksRsa = require('jwks-rsa');
 const cors = require('cors');
-require('dotenv').config()
+
+const questionRoutes = require('./routes/questionRoutes');
 
 // Initialize the app and middleware
 const app = express();
@@ -16,59 +21,64 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// Create middleware for checking the JWT
-const checkJwt = jwt({
-    // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint
-    secret: jwksRsa.expressJwtSecret({
-      cache: true,
-      rateLimit: true,
-      jwksRequestsPerMinute: 5,
-      jwksUri: process.env.JWKS_URL
-    }),
-  
-    // Validate the audience and the issuer
-    audience: process.env.JWT_AUD, //replace with your API's audience, available at Dashboard > APIs
-    issuer: process.env.JWT_ISSUER,
-    algorithms: [ 'RS256' ]
-  });
+app.use(checkJwt)
 
-console.log('JWKS_URL', process.env.JWKS_URL)
-app.get('/', checkJwt, (req, res) => {
+app.use(userInfo) 
+
+
+app.get('/', (req, res) => {
+    // console.log('req.auth', req.auth)
+    // console.log('req', req)
+
+    var userId = req.auth['https://q-and-a.uk.auth0.com/email'];
+    console.log('email', userId)
+
     res.json({ great: false })
 })
 
-// API endpoint
-app.post('/search', async (req, res) => {
-    const { query } = req.body;
-    if (!query) {
-        return res.status(400).json({ error: 'Query is required.' });
-    }
+app.use('/v1/questions', questionRoutes);
 
-    // Fuzzy Search
-    const fuzzyResults = fuzzySearch.search(query);
 
-    // Semantic Search
-    const queryEmbedding = await model.encode(query);
-    const similarities = questionEmbeddings.map((embedding, index) => ({
-        index,
-        score: cosineSimilarity(queryEmbedding, embedding),
-    }));
-    const semanticResults = similarities
-        .sort((a, b) => b.score - a.score)
-        .slice(0, 5)
-        .map(result => questionAnswerPairs[result.index]);
+const base = require('./datastore/airtablebase');
+base('Questions').select({
+    // Selecting the first 3 records in Grid view:
+    maxRecords: 1,
+    view: "Grid view",
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
 
-    // Combine and rank results (simple example: merge fuzzy + semantic)
-    const combinedResults = [...fuzzyResults, ...semanticResults];
-    const uniqueResults = combinedResults.reduce((acc, item) => {
-        if (!acc.find(el => el.question === item.question)) {
-            acc.push(item);
-        }
-        return acc;
-    }, []);
+    records.forEach(function (record, i) {
+        // console.log('Retrieved',i, record.get('Question Text'));
+        console.log('Retrieved', i, record.fields);
+        // console.log('Retrieved',i, record.get('Tags'));
+    });
 
-    res.json({ results: uniqueResults });
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { console.error(err); return; }
 });
+
+
+// Add your error-handling middleware at the end
+app.use((err, req, res, next) => {
+    // Log the error (optional)
+    console.error(err.stack);
+  
+    // Set default status code if not set
+    const statusCode = err.status || 500;
+  
+    // Send error response
+    res.status(statusCode).json({
+      error: {
+        message: err.message || 'Internal Server Error',
+      },
+    });
+  });
+  
 
 // Start the server
 const PORT = 3001;
