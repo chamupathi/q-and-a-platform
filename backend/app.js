@@ -9,6 +9,7 @@ const userInfo = require('./middlewares/userInfo');
 const cors = require('cors');
 
 const questionRoutes = require('./routes/questionRoutes');
+const tagsRoutes = require('./routes/tagsRoutes')
 
 // Initialize the app and middleware
 const app = express();
@@ -37,30 +38,35 @@ app.get('/', (req, res) => {
 })
 
 app.use('/v1/questions', questionRoutes);
+app.use('/v1/tags', tagsRoutes);
 
 
 const base = require('./datastore/airtablebase');
-base('Questions').select({
-    // Selecting the first 3 records in Grid view:
-    maxRecords: 1,
-    view: "Grid view",
-}).eachPage(function page(records, fetchNextPage) {
-    // This function (`page`) will get called for each page of records.
 
-    records.forEach(function (record, i) {
-        // console.log('Retrieved',i, record.get('Question Text'));
-        console.log('Retrieved', i, record.fields);
-        // console.log('Retrieved',i, record.get('Tags'));
-    });
+const d = []
+// base('Tags').select({
+//     // Selecting the first 3 records in Grid view:
+//     // maxRecords: 1,
+//     view: "Grid view",
+// }).eachPage(function page(records, fetchNextPage) {
+//     // This function (`page`) will get called for each page of records.
 
-    // To fetch the next page of records, call `fetchNextPage`.
-    // If there are more records, `page` will get called again.
-    // If there are no more records, `done` will get called.
-    fetchNextPage();
+//     records.forEach(function (record, i) {
+//         // console.log('Retrieved',i, record.get('Question Text'));
+//         console.log('Retrieved', i, record.fields);
+//         d.push({...record.fields, id: record.id})
+//         // console.log('Retrieved',i, record.get('Tags'));
+//     });
 
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
+//     // To fetch the next page of records, call `fetchNextPage`.
+//     // If there are more records, `page` will get called again.
+//     // If there are no more records, `done` will get called.
+//     fetchNextPage();
+
+// }, function done(err) {
+//     if (err) { console.error(err); return; }
+//     console.log('all', d)
+// });
 
 
 // Add your error-handling middleware at the end
