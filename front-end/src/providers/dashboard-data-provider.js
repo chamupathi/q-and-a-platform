@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import useFilters from '../hooks/useFilters';
 import useQuestionData from '../hooks/useQuestionData';
 

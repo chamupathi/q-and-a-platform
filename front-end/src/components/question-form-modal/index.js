@@ -9,7 +9,6 @@ import config from "../../config.json"
 
 import ModalOverlay from '../loading-modal-overlay';
 import VTextInput from '../inputs/VTextinput';
-import { useTheme } from '@mui/material';
 import { questionSchema } from '../../schemas/question.schema';
 import TagsInput from './tags-input';
 import modalBase from '../styles/modal-styles';
@@ -82,7 +81,7 @@ const QuestionFormModal = ({ open, onClose, fetchQuestions, data = initFormState
             if (isEdit) {
                 // do not need to submit the keys that aren't changed
                 config.questionKeys.forEach(k => {
-                    if (data[k] == body[k]) {
+                    if (data[k] === body[k]) {
                         delete body[k]
                     }
                 })
@@ -113,8 +112,6 @@ const QuestionFormModal = ({ open, onClose, fetchQuestions, data = initFormState
 
         setErrors({});
     };
-
-    const theme = useTheme();
 
     return (
         <Modal open={open} onClose={onClose}>

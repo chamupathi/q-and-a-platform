@@ -8,7 +8,6 @@ const Welome = ({ hideSubTitle }) => <Layout>
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            height: '100vh',
             textAlign: 'center',
             height: '100%',
             flexDirection: 'column'

@@ -18,7 +18,7 @@ const QuestionHistoryModal = () => {
     
     const { singleQuestion: { historyModalOpen, setHistoryModalOpen }, selectedQuestion, setSelectedQuestion } = useDashboardContext();
 
-    const { data, loading } = useQuestionAnswerHistory(selectedQuestion);
+    const { data, loading } = useQuestionAnswerHistory(historyModalOpen ? selectedQuestion : null);
 
     const onClose = () => {
         setHistoryModalOpen(false)

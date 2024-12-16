@@ -17,7 +17,7 @@ function Dashboard() {
                     <FilterInputs />
 
                     <QuestionsTable  />
-                    <QuestionHistoryModal />
+                    <QuestionHistoryModal /> 
                     <QuestionEditModal />
                 </Box>
             </Layout>

@@ -101,7 +101,7 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
                 ))}
             </TableBody>
         </Table>
-        {!loading && rows.length == 0 ? <Box sx={{
+        {!loading && rows.length === 0 ? <Box sx={{
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center',
