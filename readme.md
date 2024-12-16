@@ -142,11 +142,7 @@ The front end app will be available at `http://localhost:3000`.
 - Front end question history view
 - Backend question history API
 
----
 
-## Postman collection
-
-[link](https://api.postman.com/collections/828082-970f2064-0d4b-4b82-b09e-d1e27290ab08?access_key=PMAT-01JF71B3AT6JQPKA0PB2RB1VP7)
 ---
 
 ## Folder Structure `backend`
