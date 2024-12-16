@@ -1,0 +1,180 @@
+diff --git a/backend/.eslintignore b/backend/.eslintignore
+new file mode 100644
+index 0000000..6bdbc2c
+--- /dev/null
++++ b/backend/.eslintignore
+@@ -0,0 +1,5 @@
++node_modules
++dist
++build
++coverage
++*.md
+\ No newline at end of file
+diff --git a/backend/.eslintrc.json b/backend/.eslintrc.json
+new file mode 100644
+index 0000000..a10d6ef
+--- /dev/null
++++ b/backend/.eslintrc.json
+@@ -0,0 +1,16 @@
++{
++  "extends": ["eslint:recommended", "prettier"],
++  "plugins": ["prettier"],
++  "env": {
++    "node": true,
++    "es2021": true
++  },
++  "rules": {
++    "no-unused-vars": "warn",
++    "prettier/prettier": "error",
++    "no-undef": "error",
++    "no-use-before-define": "error",
++    "no-unreachable": "error",
++    "no-unused-expressions": "error"
++  }
++}
+diff --git a/backend/.prettierignore b/backend/.prettierignore
+new file mode 100644
+index 0000000..6bdbc2c
+--- /dev/null
++++ b/backend/.prettierignore
+@@ -0,0 +1,5 @@
++node_modules
++dist
++build
++coverage
++*.md
+\ No newline at end of file
+diff --git a/backend/.prettierrc.json b/backend/.prettierrc.json
+new file mode 100644
+index 0000000..6f57f14
+--- /dev/null
++++ b/backend/.prettierrc.json
+@@ -0,0 +1,9 @@
++{
++  "semi": true,
++  "singleQuote": true,
++  "tabWidth": 2,
++  "trailingComma": "es5",
++  "printWidth": 80,
++  "bracketSpacing": true,
++  "arrowParens": "avoid"
++}
+diff --git a/backend/package.json b/backend/package.json
+index 4186ac2..685a887 100644
+--- a/backend/package.json
++++ b/backend/package.json
+@@ -5,7 +5,10 @@
+   "scripts": {
+     "start": "node app.js",
+     "start-dev": "nodemon app.js",
+-    "test": "echo \"Error: no test specified\" && exit 1"
++    "test": "echo \"Error: no test specified\" && exit 1",
++    "lint": "eslint .",
++    "lint:fix": "eslint . --fix",
++    "format": "prettier --write ."
+   },
+   "keywords": [],
+   "author": "",
+@@ -24,6 +27,11 @@
+     "jwks-rsa": "^3.1.0"
+   },
+   "devDependencies": {
+-    "nodemon": "^3.1.9"
++    "@eslint/js": "^9.17.0",
++    "eslint": "^8.56.0",
++    "eslint-config-prettier": "^9.1.0",
++    "eslint-plugin-prettier": "^5.2.1",
++    "nodemon": "^3.1.9",
++    "prettier": "^3.4.2"
+   }
+ }
+diff --git a/front-end/.eslintignore b/front-end/.eslintignore
+new file mode 100644
+index 0000000..6bdbc2c
+--- /dev/null
++++ b/front-end/.eslintignore
+@@ -0,0 +1,5 @@
++node_modules
++dist
++build
++coverage
++*.md
+\ No newline at end of file
+diff --git a/front-end/.eslintrc.json b/front-end/.eslintrc.json
+new file mode 100644
+index 0000000..6f1a01f
+--- /dev/null
++++ b/front-end/.eslintrc.json
+@@ -0,0 +1,12 @@
++{
++  "extends": ["react-app", "react-app/jest"],
++  "plugins": ["prettier"],
++  "rules": {
++    "no-unused-vars": "warn",
++    "prettier/prettier": "error",
++    "no-undef": "error",
++    "no-use-before-define": "error",
++    "no-unreachable": "error",
++    "no-unused-expressions": "error"
++  }
++}
+diff --git a/front-end/.prettierignore b/front-end/.prettierignore
+new file mode 100644
+index 0000000..6bdbc2c
+--- /dev/null
++++ b/front-end/.prettierignore
+@@ -0,0 +1,5 @@
++node_modules
++dist
++build
++coverage
++*.md
+\ No newline at end of file
+diff --git a/front-end/.prettierrc.json b/front-end/.prettierrc.json
+new file mode 100644
+index 0000000..6f57f14
+--- /dev/null
++++ b/front-end/.prettierrc.json
+@@ -0,0 +1,9 @@
++{
++  "semi": true,
++  "singleQuote": true,
++  "tabWidth": 2,
++  "trailingComma": "es5",
++  "printWidth": 80,
++  "bracketSpacing": true,
++  "arrowParens": "avoid"
++}
+diff --git a/front-end/package.json b/front-end/package.json
+index be97027..9e45ef4 100644
+--- a/front-end/package.json
++++ b/front-end/package.json
+@@ -22,13 +22,10 @@
+     "start": "react-scripts start",
+     "build": "react-scripts build",
+     "test": "react-scripts test",
+-    "eject": "react-scripts eject"
+-  },
+-  "eslintConfig": {
+-    "extends": [
+-      "react-app",
+-      "react-app/jest"
+-    ]
++    "eject": "react-scripts eject",
++    "lint": "eslint .",
++    "lint:fix": "eslint --fix .",
++    "format": "prettier --write ."
+   },
+   "browserslist": {
+     "production": [
+@@ -41,5 +38,8 @@
+       "last 1 firefox version",
+       "last 1 safari version"
+     ]
++  },
++  "devDependencies": {
++    "eslint-plugin-prettier": "^5.2.1"
+   }
+-}
++}
+\ No newline at end of file

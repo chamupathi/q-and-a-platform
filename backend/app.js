@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -21,15 +21,13 @@ app.use(cors());
 // middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(checkJwt)
-app.use(userInfo)
-
+app.use(checkJwt);
+app.use(userInfo);
 
 // routes
 app.use('/v1/questions', questionRoutes);
 app.use('/v1/tags', tagsRoutes);
 app.use('/v1/properties', propertiesRoutes);
-
 
 // error-handling middleware
 app.use((err, req, res, next) => {
@@ -46,7 +44,6 @@ app.use((err, req, res, next) => {
     },
   });
 });
-
 
 // Start the server
 const PORT = 3001;
