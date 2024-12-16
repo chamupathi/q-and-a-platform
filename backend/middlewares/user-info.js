@@ -6,6 +6,12 @@ const jwksRsa = require('jwks-rsa');
 // middleware to get user info
 const userInfo = async (req, res, next) => {
 
+    // Do not call auth0 profile extensively for other requests
+    const method = req.method;
+    if(!["POST", "PATCH"].includes(method)) {
+        return next();
+    }
+
   const authorization = req.headers['authorization'];
   const response = await fetch('https://q-and-a.uk.auth0.com/userinfo', {
       method: 'GET',
