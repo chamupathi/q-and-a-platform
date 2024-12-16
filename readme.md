@@ -98,14 +98,19 @@ The choice of debounced search and dynamic filters was made to ensure real-time 
 
 Replace both `.env` files in `front-end` and `backend` folders with keys. 
 
+
+#### Running backend
 Start the development server:
 
 run follwing command in `backend` folder
 ```bash
 npm run start-dev
 ```
+##### ( ulternative | Docker )
+If you have docker installed and running. run following command
+`docker-compose up`
 
-Start the frontend:
+#### Running frontend
 
 run follwing command in `front-end` folder
 ```bash
@@ -141,6 +146,7 @@ The front end app will be available at `http://localhost:3000`.
 - Front end question update view
 - Front end question history view
 - Backend question history API
+- Containerize app
 
 
 ---

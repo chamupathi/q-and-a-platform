@@ -10,6 +10,7 @@ const cors = require('cors');
 const questionRoutes = require('./routes/questions-routes');
 const tagsRoutes = require('./routes/tags-routes');
 const propertiesRoutes = require('./routes/properties-routes');
+const errorHandler = require('./middlewares/error-handler');
 
 // Initialize the app and middleware
 const app = express();
@@ -30,23 +31,21 @@ app.use('/v1/tags', tagsRoutes);
 app.use('/v1/properties', propertiesRoutes);
 
 // error-handling middleware
-app.use((err, req, res, next) => {
-  // Log the error
-  console.error(err.stack);
-
-  // Set default status code if not set
-  const statusCode = err.status || 500;
-
-  // Send error response
-  res.status(statusCode).json({
-    error: {
-      message: err.message || 'Internal Server Error',
-    },
-  });
-});
+app.use(errorHandler);
 
 // Start the server
 const PORT = 3001;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+const shutDown = () => {
+  server.close(() => {
+    console.log('Server closed.');
+    process.exit(0);
+  });
+}
+
+// Graceful shutdown
+process.on('SIGTERM', shutDown);
+process.on('SIGINT', shutDown);
