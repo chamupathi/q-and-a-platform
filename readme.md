@@ -165,3 +165,6 @@ The front end app will be available at `http://localhost:3000`.
 ## Conclusion
 This app demonstrates a robust architecture for managing questions in a scalable and user-friendly way. The codebase remains flexible for future enhancements.
 
+## Video Demo
+[![Video Demo](https://i.ytimg.com/vi/FD7_w2KpXvk/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBeXo04AjNhE2o_eGi_ll_5Agk9jg)](https://www.youtube.com/watch?v=FD7_w2KpXvk)
+
