@@ -15,56 +15,63 @@ import useQuestionAnswerHistory from '../hooks/useQuestionAnswerHistory';
 import modalBase from './styles/modal-styles';
 
 const QuestionHistoryModal = () => {
-    
-    const { singleQuestion: { historyModalOpen, setHistoryModalOpen }, selectedQuestion, setSelectedQuestion } = useDashboardContext();
+  const {
+    singleQuestion: { historyModalOpen, setHistoryModalOpen },
+    selectedQuestion,
+    setSelectedQuestion,
+  } = useDashboardContext();
 
-    const { data, loading } = useQuestionAnswerHistory(historyModalOpen ? selectedQuestion : null);
+  const { data, loading } = useQuestionAnswerHistory(
+    historyModalOpen ? selectedQuestion : null
+  );
 
-    const onClose = () => {
-        setHistoryModalOpen(false)
-        setSelectedQuestion(null)
-    }
+  const onClose = () => {
+    setHistoryModalOpen(false);
+    setSelectedQuestion(null);
+  };
 
-    return (
-        <Modal open={historyModalOpen} onClose={onClose}>
-            <Box sx={modalBase}>
-                <Box sx={{ display: 'flex', marginTop: 2, marginBottom: 1 }}>
-                    <Typography variant="h6" gutterBottom sx={{ flexGrow: 1 }}>
-                        Question History
-                    </Typography>
-                    <Button
-                        variant="outlined"
-                        color="text.secondary"
-                        onClick={onClose}
-                        sx={{ cursor: 'pointer' }}
-                    >
-                        Close
-                    </Button>
-                </Box>
-                {loading && <LinearProgress />}
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Answer</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Updated At</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Updated By</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {data.map((answer) => (
-                                <TableRow key={answer.id}>
-                                    <TableCell>{answer.content}</TableCell>
-                                    <TableCell>{new Date(answer.createdAt).toLocaleString()}</TableCell>
-                                    <TableCell>{answer.createdBy}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Box>
-        </Modal>
-    );
-}
+  return (
+    <Modal open={historyModalOpen} onClose={onClose}>
+      <Box sx={modalBase}>
+        <Box sx={{ display: 'flex', marginTop: 2, marginBottom: 1 }}>
+          <Typography variant="h6" gutterBottom sx={{ flexGrow: 1 }}>
+            Question History
+          </Typography>
+          <Button
+            variant="outlined"
+            color="text.secondary"
+            onClick={onClose}
+            sx={{ cursor: 'pointer' }}
+          >
+            Close
+          </Button>
+        </Box>
+        {loading && <LinearProgress />}
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 'bold' }}>Answer</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }}>Updated At</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }}>Updated By</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map(answer => (
+                <TableRow key={answer.id}>
+                  <TableCell>{answer.content}</TableCell>
+                  <TableCell>
+                    {new Date(answer.createdAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell>{answer.createdBy}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Modal>
+  );
+};
 
 export default QuestionHistoryModal;

@@ -5,27 +5,43 @@ import useQuestion from '../hooks/useQuestion';
 import { useGlobalContext } from '../providers/global-provider';
 
 const QuestionEditModal = () => {
-    const { fetchQuestions, singleQuestion: { editModalOpen, setEditModalOpen }, selectedQuestion, setSelectedQuestion } = useDashboardContext();
+  const {
+    fetchQuestions,
+    singleQuestion: { editModalOpen, setEditModalOpen },
+    selectedQuestion,
+    setSelectedQuestion,
+  } = useDashboardContext();
 
-    const { data, loading } = useQuestion(editModalOpen ? selectedQuestion : null);
+  const { data, loading } = useQuestion(
+    editModalOpen ? selectedQuestion : null
+  );
 
-    const { tags, properties } = useGlobalContext();
+  const { tags, properties } = useGlobalContext();
 
-    const questionTagIds = data?.fields?.tags || []
-    const mappedTags = tags.filter(t => questionTagIds.some(tid => t.id === tid))
+  const questionTagIds = data?.fields?.tags || [];
+  const mappedTags = tags.filter(t => questionTagIds.some(tid => t.id === tid));
 
-    const handleClose = () => {
-        setSelectedQuestion(null)
-        setEditModalOpen(false)
-    }
+  const handleClose = () => {
+    setSelectedQuestion(null);
+    setEditModalOpen(false);
+  };
 
-    return !loading && data?.fields && <QuestionFormModal open={editModalOpen} onClose={handleClose} fetchQuestions={fetchQuestions}
+  return (
+    !loading &&
+    data?.fields && (
+      <QuestionFormModal
+        open={editModalOpen}
+        onClose={handleClose}
+        fetchQuestions={fetchQuestions}
         data={{
-            ...data?.fields,
-            tags: mappedTags
+          ...data?.fields,
+          tags: mappedTags,
         }}
         id={data.id}
-        isEdit />
-}
+        isEdit
+      />
+    )
+  );
+};
 
 export default QuestionEditModal;

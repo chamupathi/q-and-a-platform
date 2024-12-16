@@ -11,7 +11,6 @@ const audience = process.env.REACT_APP_AUTH0_AUD;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
   <Auth0Provider
     cacheLocation="localstorage"
     domain={domain}
@@ -19,7 +18,7 @@ root.render(
     Auth0Provider
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: audience
+      audience: audience,
     }}
   >
     <App />

@@ -8,7 +8,11 @@ import { useDashboardContext } from '../providers/dashboard-data-provider';
 
 const FilterInputs = () => {
   const { tags } = useGlobalContext();
-  const { setSearchText, setAssignee, setTags: onTagsChange } = useDashboardContext();
+  const {
+    setSearchText,
+    setAssignee,
+    setTags: onTagsChange,
+  } = useDashboardContext();
 
   return (
     <Box sx={{ display: 'flex', gap: 2, padding: 0, paddingTop: 2 }}>
@@ -16,14 +20,14 @@ const FilterInputs = () => {
       <Autocomplete
         multiple
         options={tags}
-        getOptionLabel={(option) => option.name} // Display value in dropdown
+        getOptionLabel={option => option.name} // Display value in dropdown
         isOptionEqualToValue={(option, value) => option.id === value.id}
-        renderInput={(params) => (
+        renderInput={params => (
           <TextField {...params} label="Tags" variant="outlined" />
         )}
         sx={{ minWidth: 200, flex: 3 }}
         onChange={(event, newInputValue) => {
-          onTagsChange(newInputValue)
+          onTagsChange(newInputValue);
         }}
       />
 
@@ -32,7 +36,7 @@ const FilterInputs = () => {
         label="Search.."
         variant="outlined"
         sx={{ flexGrow: 2 }}
-        onChange={(e) => setSearchText(e.target.value)}
+        onChange={e => setSearchText(e.target.value)}
       />
 
       {/* Assignee Filter */}
@@ -40,11 +44,10 @@ const FilterInputs = () => {
         label="Assignee"
         variant="outlined"
         sx={{ minWidth: 200, flexGrow: 1 }}
-        onChange={(e) => setAssignee(e.target.value)}
+        onChange={e => setAssignee(e.target.value)}
       />
-
     </Box>
   );
-}
+};
 
-export default FilterInputs
+export default FilterInputs;

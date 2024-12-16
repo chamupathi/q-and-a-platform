@@ -10,41 +10,48 @@ import { useTheme } from '@mui/material';
 import AuthButton from './auth-button';
 
 const Layout = ({ children }) => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            {/* Header Section */}
-            <AppBar position="fixed">
-                <Toolbar>
-                    {/* Home Icon */}
-                    <IconButton edge="start" color="inherit" aria-label="home" sx={{ mr: 2 }}>
-                        <HomeIcon />
-                    </IconButton>
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      {/* Header Section */}
+      <AppBar position="fixed">
+        <Toolbar>
+          {/* Home Icon */}
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="home"
+            sx={{ mr: 2 }}
+          >
+            <HomeIcon />
+          </IconButton>
 
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Answer Mate
-                    </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Answer Mate
+          </Typography>
 
-                    {/* Profile Icon */}
-                    <IconButton color="inherit" aria-label="profile" sx={{ mr: 2 }}>
-                        <AccountCircle />
-                    </IconButton>
+          {/* Profile Icon */}
+          <IconButton color="inherit" aria-label="profile" sx={{ mr: 2 }}>
+            <AccountCircle />
+          </IconButton>
 
+          <AuthButton />
+        </Toolbar>
+      </AppBar>
 
-                    <AuthButton />
-                </Toolbar>
-            </AppBar>
+      {/* To componsate for the app bar height */}
+      <Toolbar />
 
-            {/* To componsate for the app bar height */}
-            <Toolbar />
-
-
-            <Box sx={{ height: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.spacing(1)})`, }}>
-                {children}
-            </Box>
-        </Box>
-    );
-}
+      <Box
+        sx={{
+          height: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${theme.spacing(1)})`,
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
+  );
+};
 
 export default Layout;
