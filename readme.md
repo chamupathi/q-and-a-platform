@@ -5,35 +5,6 @@ The Q and A App is a feature-rich platform for managing questions and their life
 
 ---
 
-## Development steps
-
-- Identifing and prioratizing feature requirements
- - `question` CRUD operations
-    - Create a question in back end
-    - Get a question in back end
-    - List Questions
-    - Update and delete operations for questions
-- integrating authentication 
-    - Choose auth provider
-        - Auth0
-    - Create and setup auth0 application
-    - Setup login from front end
-    - authentication from back end
-- create `tags` CRUD operations
-- create back end searching strategy
-    - search text for `question` , `description` and `answer`
-    - list by asignee
-    - list by tags
-    - decide to go with `OR` conditions given that limited questions will be handled.
-- font end dashboard list view
-- font end question create view
-    - validation
-- font end question update view
-- font end question history view
-- font end question history API
-
----
-
 ## Features
 
 ### Core Features:
@@ -142,6 +113,34 @@ npm start
 ```
 
 The front end app will be available at `http://localhost:3000`.
+---
+
+## Project steps
+
+1. Identifing and prioratizing feature requirements
+ - `question` CRUD operations
+    - Create a question in back end
+    - Get a question in back end
+    - List Questions
+    - Update and delete operations for questions
+- Integrating authentication 
+    - Choose auth provider
+        - Auth0
+    - Create and setup auth0 application
+    - Setup login from front end
+    - authentication from back end
+- Create `tags` CRUD operations
+- Create back end searching strategy
+    - search text for `question` , `description` and `answer`
+    - list by asignee
+    - list by tags
+    - decide to go with `OR` conditions given that limited questions will be handled.
+- Front end dashboard list view
+- Front end question create view
+    - validation
+- Front end question update view
+- Front end question history view
+- Backend question history API
 
 ---
 
