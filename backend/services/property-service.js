@@ -6,50 +6,29 @@ class PropertiesService {
         this.propertyValueStore = new AirtableStore('property_value');
     }
 
-
-    // Create a new tag
+    // Create a new property
     async createProperty(data) {
-        const res = this.propertyValueStore.create(data).catch(err => console.log(err))
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return this.propertyValueStore.create(data).catch(err => console.log(err))
     }
 
-    // Retrieve all tags
+    // Retrieve all propertys
     async getAllProperties() {
-        const data = await this.propertyValueStore.getAll();
-
-        return await new Promise(resolve => {
-            resolve([...data])
-        })
+        return await this.propertyValueStore.getAll();
     }
 
-    // Retrieve a tag by ID
+    // Retrieve a property by ID
     async getPropertyById(id) {
-        const data = await this.propertyValueStore.get(id);
-
-        return await new Promise(resolve => {
-            resolve(data)
-        })
+        return await this.propertyValueStore.get(id);
     }
 
-    // Update a tag by ID
+    // Update a property by ID
     async updateProperty(id, data) {
-        const res = await this.propertyValueStore.update(id, data);
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return await this.propertyValueStore.update(id, data);
     }
 
-    // Delete a tag by ID
+    // Delete a property by ID
     async deleteProperty(id) {
-        const res = await this.propertyValueStore.delete(id);
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return await this.propertyValueStore.delete(id);
     }
 }
 

@@ -7,7 +7,7 @@ class TagsService {
 
     // Create a new tag
     async createTag(data) {
-        return this.tagsStore.create(data).catch(err => console.log(err))
+        return this.tagsStore.create(data);
     }
 
     // Retrieve all tags

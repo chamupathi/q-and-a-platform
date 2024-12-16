@@ -32,8 +32,6 @@ const useTags = () => {
     };
 
     useEffect(() => {
-        
-
         fetchData();
     }, []);
 

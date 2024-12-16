@@ -12,38 +12,25 @@ class QuestionService {
         const res = await this.questionsStore.create(data);
 
         if (data.answer) {
-            const answerRes = await this.answersStore.create({
+            await this.answersStore.create({
                 content: data.answer,
                 createdBy: data.createdBy,
                 questionId : res.id
             })
-
-            // data.answer_history = [answerRes.id];
         }
 
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return res;
     }
 
     async getAllQuestions(search = [], size) {
-        const data = await this.questionsStore.getAll(
+        return await this.questionsStore.getAll(
             search, size
         );
-
-        return await new Promise(resolve => {
-            resolve([...data])
-        })
     }
 
     // Retrieve a question by ID
     async getQuestionById(id) {
-        
-        const data = await this.questionsStore.get(id);
-
-        return await new Promise(resolve => {
-            resolve(data)
-        })
+        return await this.questionsStore.get(id);
     }
 
     async getQuestionAnswersById(id) {
