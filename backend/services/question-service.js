@@ -47,13 +47,9 @@ class QuestionService {
     }
 
     async getQuestionAnswersById(id) {
-        const data = await this.answersStore.getAll(
+        return await this.answersStore.getAll(
             [{ type:'text', field: 'questionId', term: id}]
         );
-
-        return await new Promise(resolve => {
-            resolve(data)
-        })
     }
 
     // Update a question by ID
@@ -69,34 +65,13 @@ class QuestionService {
             data.answer_history = [...(q.fields.answer_history ?? []), answerRes.id]
         }
 
-        const res = await this.questionsStore.update(id, data);
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return await this.questionsStore.update(id, data);
     }
 
     // Delete a question by ID
     async deleteQuestion(id) {
-        const res = await this.questionsStore.delete(id);
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return await this.questionsStore.delete(id);
     }
 }
-// // Create a new question
-// async function createQuestion(data) {
-//     const a = new AirtableStore('Questions');
-//     const res = await a.create(data);
-
-//     return await new Promise(resolve => {
-//         resolve([...Object.keys(res)])
-//     })
-
-// }
-
-// Retrieve all questions
-
 
 module.exports = QuestionService;

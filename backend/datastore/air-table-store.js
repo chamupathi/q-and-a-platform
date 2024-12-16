@@ -81,9 +81,7 @@ class AirtableStore {
         try {
             const res = await base(this.tableName).find(id)
 
-            return await new Promise(resolve => {
-                resolve(res._rawJson)
-            })
+            return res._rawJson
         } catch (error) {
             console.error(error)
         }
@@ -98,17 +96,13 @@ class AirtableStore {
             }
         }])
 
-        return await new Promise(resolve => {
-            resolve(res[0]._rawJson)
-        })
+        return res[0]._rawJson
     }
 
     async delete(id) {
         const res = await base(this.tableName).destroy([id])
 
-        return await new Promise(resolve => {
-            resolve(res)
-        })
+        return res
     }
 
 }

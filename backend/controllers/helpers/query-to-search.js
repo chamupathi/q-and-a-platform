@@ -1,10 +1,8 @@
-// make sure that only rthe allowed keys are passed through
+// This function make sure that only the allowed keys are passed through
 // TODO: add Yup validation for this
 const queryToSearch = (query) => {
 
     const search = [];
-
-    
 
     Object.keys(query).forEach(k => {
         switch(k) {
