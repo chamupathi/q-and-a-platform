@@ -12,22 +12,10 @@ import Paper from '@mui/material/Paper';
 import { useDashboardContext } from '../providers/dashboard-data-provider';
 import { Button, LinearProgress } from '@mui/material';
 import useQuestionAnswerHistory from '../hooks/useQuestionAnswerHistory';
+import modalBase from './styles/modal-styles';
 
 const QuestionHistoryModal = () => {
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-        borderRadius: 2,
-        minHeight: '50vh'
-    };
-
+    
     const { singleQuestion: { historyModalOpen, setHistoryModalOpen }, selectedQuestion, setSelectedQuestion } = useDashboardContext();
 
     const { data, loading } = useQuestionAnswerHistory(selectedQuestion);
@@ -39,8 +27,7 @@ const QuestionHistoryModal = () => {
 
     return (
         <Modal open={historyModalOpen} onClose={onClose}>
-            <Box sx={style}>
-
+            <Box sx={modalBase}>
                 <Box sx={{ display: 'flex', marginTop: 2, marginBottom: 1 }}>
                     <Typography variant="h6" gutterBottom sx={{ flexGrow: 1 }}>
                         Question History

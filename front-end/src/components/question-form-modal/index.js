@@ -12,6 +12,7 @@ import VTextInput from '../inputs/VTextinput';
 import { useTheme } from '@mui/material';
 import { questionSchema } from '../../schemas/question.schema';
 import TagsInput from './tags-input';
+import modalBase from '../styles/modal-styles';
 
 const initFormState = {
     question: '',
@@ -119,21 +120,13 @@ const QuestionFormModal = ({ open, onClose, fetchQuestions, data = initFormState
         <Modal open={open} onClose={onClose}>
             <Box
                 sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
+                    ...modalBase,
                     width: 400,
-                    bgcolor: 'background.paper',
-                    border: '2px solid #000',
-                    boxShadow: 24,
-                    p: 4,
-                    borderRadius: theme.shape.borderRadius,
                 }}
             >
                 {sumbitting && <ModalOverlay />}
                 <Typography variant="h6" gutterBottom>
-                    Create Question
+                    {isEdit ? "Edit" : "Create" } Question
                 </Typography>
 
                 <VTextInput label="Question" fieldName="question" handleChange={handleChange} errors={errors} form={form} multiline rows={3} />
@@ -141,15 +134,15 @@ const QuestionFormModal = ({ open, onClose, fetchQuestions, data = initFormState
                 <VTextInput label="Assigned To" fieldName="assignee" handleChange={handleChange} errors={errors} form={form} />
 
                 {/* TODO Implement multy properties input */}
-                
+
                 <TagsInput
                     form={form} setForm={setForm} errors={errors} setSumbitting={setSumbitting}
                 />
-                
+
                 <VTextInput label="Description" fieldName="description" handleChange={handleChange} errors={errors} form={form} multiline rows={2} />
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                    <Button onClick={onClose} color="secondary" sx={{ marginRight: 1 }}>
+                    <Button onClick={onClose} variant='outlined' sx={{ marginRight: 1 }}>
                         Cancel
                     </Button>
                     <Button onClick={handleSubmit} variant="contained" color="primary">

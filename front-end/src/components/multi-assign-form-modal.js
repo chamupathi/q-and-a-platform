@@ -10,6 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import config from '../config.json'
 import { useDashboardContext } from '../providers/dashboard-data-provider';
 import { CircularProgress } from '@mui/material';
+import modalBase from './styles/modal-styles';
 
 
 const style = {
@@ -99,7 +100,8 @@ const MultiAssignModal = ({ open, onClose, ids = [] }) => {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={style}>
+  
+      <Box sx={{...modalBase, width: 400}}>
         <Typography variant="h6" gutterBottom>
           Assign question(s)
         </Typography>
