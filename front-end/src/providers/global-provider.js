@@ -5,11 +5,11 @@ import useProperties from '../hooks/useProperties';
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const { data: tags } = useTags();
+  const { data: tags, fetchData: fetchTags } = useTags();
   const { data: properties } = useProperties();
 
   return (
-    <GlobalContext.Provider value={{ tags, properties }}>
+    <GlobalContext.Provider value={{ tags, properties, fetchTags }}>
       {children}
     </GlobalContext.Provider>
   );

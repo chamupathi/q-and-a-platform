@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import config from '../config.json';
 
-const useTags = () => {
+const useQuestion = (questionId) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const { getAccessTokenSilently } = useAuth0();
@@ -12,7 +12,7 @@ const useTags = () => {
         try {
             const token = await getAccessTokenSilently();
 
-            const response = await fetch(`${config.baseUrl}/tags`, {
+            const response = await fetch(`${config.baseUrl}/questions/${questionId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -32,12 +32,11 @@ const useTags = () => {
     };
 
     useEffect(() => {
-        
+        setData([])
+        if(questionId) fetchData();
+    }, [questionId]);
 
-        fetchData();
-    }, []);
-
-    return { data, loading, fetchData }
+    return { data, loading }
 }
 
-export default useTags;
+export default useQuestion;

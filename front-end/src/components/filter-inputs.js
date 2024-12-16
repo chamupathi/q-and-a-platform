@@ -4,9 +4,11 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { useGlobalContext } from '../providers/global-provider';
+import { useDashboardContext } from '../providers/dashboard-data-provider';
 
-const FilterInputs = ({setSearchText, setAssignee, onTagsChange}) => {
+const FilterInputs = () => {
   const { tags } = useGlobalContext();
+  const { setSearchText, setAssignee, setTags: onTagsChange } = useDashboardContext();
 
   return (
     <Box sx={{ display: 'flex', gap: 2, padding: 0, paddingTop: 2 }}>

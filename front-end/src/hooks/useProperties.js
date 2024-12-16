@@ -1,5 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
+import config from '../config.json'
 
 const useProperties = () => {
     const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ const useProperties = () => {
             try {
                 const token = await getAccessTokenSilently();
 
-                const response = await fetch(`http://localhost:3001/v1/properties`, {
+                const response = await fetch(`${config.baseUrl}/properties`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
