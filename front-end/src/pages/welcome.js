@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Layout from '../components/layout';
 
-const Welome = () => <Layout>
+const Welome = ({ hideSubTitle }) => <Layout>
     <Box
         sx={{
             display: 'flex',
@@ -17,6 +17,9 @@ const Welome = () => <Layout>
         <Typography variant="h3">
             Welcome to "Answer Mate"!
         </Typography>
+        {!hideSubTitle ? <Typography variant="h5" sx={{ mt: 2 }}>
+            Sign in to continue!
+        </Typography> : null}
     </Box>
 </Layout>
 

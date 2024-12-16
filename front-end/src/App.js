@@ -1,36 +1,17 @@
 import './App.css';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from 'react'
 import Dashboard from './pages/dashboard';
 import Welome from './pages/welcome';
 import { GlobalProvider } from './providers/global-provider';
+import useDebouncedValue from './hooks/useDebouncedValue';
 
 function App() {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated } = useAuth0();
+  // To give auth0 to setup auth from theie end, wait a bit
+  const debouncedIsAuthenticated = useDebouncedValue(isAuthenticated, 1000)
 
-
-  useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "q-and-a.uk.auth0.com";
-
-      try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://${domain}/api/v2/`,
-          scope: "read:current_user",
-          ignoreCache: true
-        });
-
-        console.log('accessToken', accessToken)
-      } catch (e) {
-        console.log(e.message);
-      }
-    };
-
-    getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
-
-  if (!isAuthenticated) {
-    return <Welome />
+  if (!debouncedIsAuthenticated) {
+    return <Welome hideSubTitle={isAuthenticated} />
   }
 
   return <GlobalProvider>

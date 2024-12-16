@@ -48,12 +48,12 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
         }
     }
 
-    return <TableContainer component={Paper} sx={{ marginTop: 2, flexGrow: 1 }}>
+    return <TableContainer component={Paper} sx={{ marginTop: 2, flexGrow: 1, }}>
         {loading && <LinearProgress />}
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650,  }} aria-label="simple table">
             <TableHead sx={{ backgroundColor: '#f5f5f5', fontWeight: 'bold' }}>
                 <TableRow>
-                    <TableCell>
+                    <TableCell >
                         <Checkbox inputProps={{ 'aria-label': 'select all rows' }} onChange={handleAllCheckBoxChange} />
                     </TableCell>
                     <TableCell>Question</TableCell>
