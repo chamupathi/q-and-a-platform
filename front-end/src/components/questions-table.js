@@ -17,18 +17,20 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { useDashboardContext } from '../providers/dashboard-data-provider';
 import { memo, useState } from 'react';
 import { Button } from '@mui/material';
+import MultiAssignModal from './multi-assign-form-modal';
 
 
 const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEditButtonClick }) => {
 
     const [selectedIds, setSelectedIds] = useState(new Set());
+    const [openMutiAssignModal, setOpenMutiAssignModal] = useState(false);
 
     const handleCheckBoxChange = (id) => (e) => {
         const checked = e.target.checked;
 
         const ids = new Set([...selectedIds]);
 
-        if(checked) {
+        if (checked) {
             ids.add(id);
         } else {
             ids.delete(id)
@@ -39,7 +41,7 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
 
     const handleAllCheckBoxChange = (e) => {
         const checked = e.target.checked;
-        if(checked) {
+        if (checked) {
             setSelectedIds(new Set(rows.map(r => r.id)))
         } else {
             setSelectedIds(new Set())
@@ -52,14 +54,14 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
             <TableHead sx={{ backgroundColor: '#f5f5f5', fontWeight: 'bold' }}>
                 <TableRow>
                     <TableCell>
-                        <Checkbox inputProps={{ 'aria-label': 'select all rows' }} onChange={handleAllCheckBoxChange}/>
+                        <Checkbox inputProps={{ 'aria-label': 'select all rows' }} onChange={handleAllCheckBoxChange} />
                     </TableCell>
                     <TableCell>Question</TableCell>
                     <TableCell align="left">Answer</TableCell>
                     <TableCell align="left">Description</TableCell>
                     <TableCell align="left">Tags</TableCell>
                     <TableCell align="left">Assigned To</TableCell>
-                    <TableCell align="left">{selectedIds.size ? <Button variant='outlined'>Assign</Button> : null}</TableCell>
+                    <TableCell align="left">{selectedIds.size ? <Button variant='outlined' onClick={() => setOpenMutiAssignModal(true)}>Assign</Button> : null}</TableCell>
 
                 </TableRow>
             </TableHead>
@@ -70,7 +72,7 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                         <TableCell>
-                            <Checkbox checked={selectedIds.has(row.id)} inputProps={{ 'aria-label': `select row ${row.id}` }} onChange={handleCheckBoxChange(row.id )}/>
+                            <Checkbox checked={selectedIds.has(row.id)} inputProps={{ 'aria-label': `select row ${row.id}` }} onChange={handleCheckBoxChange(row.id)} />
                         </TableCell>
                         <TableCell component="th" scope="row">
                             {row.question}
@@ -82,17 +84,17 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
                             key={t} label={t} />)}</TableCell>
                         <TableCell>{row.assignee}</TableCell>
                         <TableCell>
-                            <Box sx={{ display: 'flex', flexDirection: 'row'}}>
-                            <IconButton color="primary" aria-label="view record" onClick={() => {
-                                onHistoryButtonClick(row.id)
-                            }}>
-                                <VisibilityIcon />
-                            </IconButton>
-                            <IconButton color="secondary" aria-label="view record" onClick={() => {
-                                onEditButtonClick(row.id)
-                            }}>
-                                <EditAttributesIcon />
-                            </IconButton>
+                            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                                <IconButton color="primary" aria-label="view record" onClick={() => {
+                                    onHistoryButtonClick(row.id)
+                                }}>
+                                    <VisibilityIcon />
+                                </IconButton>
+                                <IconButton color="secondary" aria-label="view record" onClick={() => {
+                                    onEditButtonClick(row.id)
+                                }}>
+                                    <EditAttributesIcon />
+                                </IconButton>
                             </Box>
                         </TableCell>
                     </TableRow>
@@ -107,6 +109,7 @@ const MemoizedQuestionsTable = memo(({ rows, loading, onHistoryButtonClick, onEd
         }}>
             <Typography variant='body1'>No data found for the selection</Typography>
         </Box> : null}
+        <MultiAssignModal open={openMutiAssignModal} onClose={() => { setOpenMutiAssignModal(false) }} ids={[...selectedIds]}/>
     </TableContainer>
 })
 

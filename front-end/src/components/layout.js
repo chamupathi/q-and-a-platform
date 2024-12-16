@@ -22,9 +22,8 @@ const Layout = ({ children }) => {
                         <HomeIcon />
                     </IconButton>
 
-
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Questionnaires
+                        Answer Mate
                     </Typography>
 
                     {/* Profile Icon */}

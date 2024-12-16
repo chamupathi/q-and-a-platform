@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import Joi from 'joi';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import Modal from '@mui/material/Modal';
-import { useGlobalContext } from '../../providers/global-provider';
 import { useAuth0 } from '@auth0/auth0-react';
 
 import config from "../../config.json"
@@ -28,7 +24,6 @@ const initFormState = {
 
 const QuestionFormModal = ({ open, onClose, fetchQuestions, data = initFormState, isEdit = false, id }) => {
     const { getAccessTokenSilently } = useAuth0();
-    const { tags, properties, fetchTags } = useGlobalContext();
     const [form, setForm] = useState(data);
 
     const [errors, setErrors] = useState({});

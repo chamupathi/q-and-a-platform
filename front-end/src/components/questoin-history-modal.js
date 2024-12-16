@@ -28,12 +28,13 @@ const QuestionHistoryModal = () => {
         minHeight: '50vh'
     };
 
-    const { singleQuestion: { historyModalOpen, setHistoryModalOpen }, selectedQuestion } = useDashboardContext();
+    const { singleQuestion: { historyModalOpen, setHistoryModalOpen }, selectedQuestion, setSelectedQuestion } = useDashboardContext();
 
     const { data, loading } = useQuestionAnswerHistory(selectedQuestion);
 
     const onClose = () => {
         setHistoryModalOpen(false)
+        setSelectedQuestion(null)
     }
 
     return (
