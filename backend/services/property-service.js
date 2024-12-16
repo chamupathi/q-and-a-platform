@@ -1,56 +1,34 @@
-const AirtableStore = require("../datastore/air-table-store");
-
+const AirtableStore = require('../datastore/air-table-store');
 
 class PropertiesService {
-    constructor() {
-        this.propertyValueStore = new AirtableStore('property_value');
-    }
+  constructor() {
+    this.propertyValueStore = new AirtableStore('property_value');
+  }
 
+  // Create a new property
+  async createProperty(data) {
+    return this.propertyValueStore.create(data).catch(err => console.log(err));
+  }
 
-    // Create a new tag
-    async createProperty(data) {
-        const res = this.propertyValueStore.create(data).catch(err => console.log(err))
+  // Retrieve all propertys
+  async getAllProperties() {
+    return await this.propertyValueStore.getAll();
+  }
 
-        return await new Promise(resolve => {
-            resolve(res)
-        })
-    }
+  // Retrieve a property by ID
+  async getPropertyById(id) {
+    return await this.propertyValueStore.get(id);
+  }
 
-    // Retrieve all tags
-    async getAllProperties() {
-        const data = await this.propertyValueStore.getAll();
+  // Update a property by ID
+  async updateProperty(id, data) {
+    return await this.propertyValueStore.update(id, data);
+  }
 
-        return await new Promise(resolve => {
-            resolve([...data])
-        })
-    }
-
-    // Retrieve a tag by ID
-    async getPropertyById(id) {
-        const data = await this.propertyValueStore.get(id);
-
-        return await new Promise(resolve => {
-            resolve(data)
-        })
-    }
-
-    // Update a tag by ID
-    async updateProperty(id, data) {
-        const res = await this.propertyValueStore.update(id, data);
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
-    }
-
-    // Delete a tag by ID
-    async deleteProperty(id) {
-        const res = await this.propertyValueStore.delete(id);
-
-        return await new Promise(resolve => {
-            resolve(res)
-        })
-    }
+  // Delete a property by ID
+  async deleteProperty(id) {
+    return await this.propertyValueStore.delete(id);
+  }
 }
 
 module.exports = PropertiesService;

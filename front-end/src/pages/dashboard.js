@@ -9,20 +9,20 @@ import { DashboardDataProvider } from '../providers/dashboard-data-provider';
 import QuestionEditModal from '../components/questoin-edit-modal';
 
 function Dashboard() {
-    return (
-        <DashboardDataProvider>
-            <Layout>
-                <Box sx={{ pl: 5, pr: 5, maxWidth: 1600, margin: '0 auto', mt: 2 }}>
-                    <SecondaryHeader />
-                    <FilterInputs />
+  return (
+    <DashboardDataProvider>
+      <Layout>
+        <Box sx={{ pl: 5, pr: 5, maxWidth: 1600, margin: '0 auto', mt: 2 }}>
+          <SecondaryHeader />
+          <FilterInputs />
 
-                    <QuestionsTable  />
-                    <QuestionHistoryModal /> 
-                    <QuestionEditModal />
-                </Box>
-            </Layout>
-        </DashboardDataProvider>
-    );
+          <QuestionsTable />
+          <QuestionHistoryModal />
+          <QuestionEditModal />
+        </Box>
+      </Layout>
+    </DashboardDataProvider>
+  );
 }
 
 export default Dashboard;

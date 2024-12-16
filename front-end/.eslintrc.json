@@ -1,0 +1,12 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "plugins": ["prettier"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "prettier/prettier": "error",
+    "no-undef": "error",
+    "no-use-before-define": "error",
+    "no-unreachable": "error",
+    "no-unused-expressions": "error"
+  }
+}
