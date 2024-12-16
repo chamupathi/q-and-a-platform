@@ -1,4 +1,11 @@
 {
-    "baseUrl": "http://localhost:3001/v1",
-    "questionKeys" : ["question", "properties", "tags", "answer", "description", "assignee"]
+  "baseUrl": "http://localhost:3001/v1",
+  "questionKeys": [
+    "question",
+    "properties",
+    "tags",
+    "answer",
+    "description",
+    "assignee"
+  ]
 }
